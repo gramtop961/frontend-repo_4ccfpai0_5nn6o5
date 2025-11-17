@@ -3,17 +3,7 @@
 > vite
 
 
-  VITE v5.4.20  ready in 295 ms
+  VITE v5.4.20  ready in 274 ms
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: http://172.20.15.211:3000/
-3:50:08 PM [vite] warning: The character ">" is not valid inside a JSX element
-59 |              <div className="text-sm font-semibold text-emerald-800 flex items-center gap-2"><Zap className="h-4 w-4" /> Automations</div>
-60 |              <ul className="mt-2 text-xs text-emerald-900/80 space-y-1">
-61 |                <li>• Alert: Ops queue > 50</li>
-   |                                         ^
-62 |                <li>• Sync: CRM → Billing nightly</li>
-63 |                <li>• Trigger: Retry failed webhooks</li>
-
-  Plugin: vite:esbuild
-  File: /home/workspace/src/components/Showcase.jsx
