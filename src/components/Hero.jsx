@@ -1,22 +1,46 @@
-import Spline from '@splinetool/react-spline'
+import React, { useEffect, useState, Suspense, lazy } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import { ArrowDownRight, Sparkles } from 'lucide-react'
+
+// Lazy-load the heavy Spline scene so first paint is fast and failures don't block the app
+const SplineLazy = lazy(() => import('@splinetool/react-spline'))
 
 export default function Hero() {
   const words = ['systems', 'dashboards', 'integrations', 'workflows']
   const [index, setIndex] = useState(0)
+  const [enable3D, setEnable3D] = useState(false)
 
   useEffect(() => {
     const id = setInterval(() => setIndex((i) => (i + 1) % words.length), 2200)
     return () => clearInterval(id)
   }, [])
 
+  useEffect(() => {
+    // Defer enabling Spline until after mount to avoid blocking render
+    const t = setTimeout(() => setEnable3D(true), 0)
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <section className="relative min-h-[94vh] overflow-hidden pt-28">
-      {/* 3D background */}
+      {/* 3D background (lazy, with graceful fallback) */}
       <div className="absolute inset-0 -z-10">
-        <Spline scene="https://prod.spline.design/VyGeZv58yuk8j7Yy/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+        <div className="w-full h-full">
+          {enable3D ? (
+            <Suspense
+              fallback={
+                <div className="w-full h-full bg-gradient-to-b from-indigo-50 via-white to-white" />
+              }
+            >
+              <SplineLazy
+                scene="https://prod.spline.design/VyGeZv58yuk8j7Yy/scene.splinecode"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </Suspense>
+          ) : (
+            <div className="w-full h-full bg-gradient-to-b from-indigo-50 via-white to-white" />
+          )}
+        </div>
       </div>
 
       {/* overlays for contrast and vibe */}
