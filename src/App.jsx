@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Story from './components/Story'
+import Showcase from './components/Showcase'
 import Work from './components/Work'
 import Contact from './components/Contact'
 
@@ -10,6 +11,7 @@ function App() {
       <Navbar />
       <Hero />
       <Story />
+      <Showcase />
       <Work />
       <Contact />
       <footer className="border-t border-slate-200 py-10 mt-10">
